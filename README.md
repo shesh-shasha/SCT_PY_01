@@ -1,27 +1,54 @@
 # Caesar Cipher Encryption & Decryption
 
-This Python program performs **Caesar Cipher encryption and decryption**.
+#This Python program performs **Caesar Cipher encryption and decryption**.
+def caesar_cipher_encrypt(text, shift):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            base = ord('A') if char.isupper() else ord('a')
+            result += chr((ord(char) - base + shift) % 26 + base)
+        else:
+            result += char
+    return result
 
-## 🔑 What is Caesar Cipher?
+def caesar_cipher_decrypt(text, shift):
+    return caesar_cipher_encrypt(text, -shift)
 
-The Caesar Cipher is one of the simplest and most widely known encryption techniques. It is a type of substitution cipher in which each letter in the plaintext is shifted by a fixed number of positions in the alphabet.
+def main():
+    while True:
+        print("\n--- Caesar Cipher Menu ---")
+        print("A. Encrypt")
+        print("B. Decrypt")
+        print("C. Exit")
 
----
+        choice = input("Enter your choice (A/B/C): ").strip().upper()
 
-## 📌 Features
+        if choice == 'A':
+            message = input("Enter the message to encrypt: ")
+            try:
+                shift = int(input("Enter the shift value: "))
+            except ValueError:
+                print("Shift value must be an integer.")
+                continue
+            encrypted = caesar_cipher_encrypt(message, shift)
+            print("Encrypted message:", encrypted)
 
-- Encrypt a message with a shift value
-- Decrypt an encrypted message
-- Simple command-line interface with options:
-  - `A`: Encrypt
-  - `B`: Decrypt
-  - `C`: Exit
+        elif choice == 'B':
+            message = input("Enter the message to decrypt: ")
+            try:
+                shift = int(input("Enter the shift value: "))
+            except ValueError:
+                print("Shift value must be an integer.")
+                continue
+            decrypted = caesar_cipher_decrypt(message, shift)
+            print("Decrypted message:", decrypted)
 
----
+        elif choice == 'C':
+            print("Exiting program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please choose A, B, or C.")
 
-## 🚀 How to Run
+if __name__ == "__main__":
+    main()
 
-1. Clone the repository or download the Python file.
-2. Run the Python script:
-   ```bash
-   python caesar_cipher.py
